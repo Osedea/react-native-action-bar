@@ -102,6 +102,7 @@ export default class ActionBar extends Component {
         backgroundColor: React.PropTypes.string,
         leftBadge: React.PropTypes.number,
         leftIconName: React.PropTypes.string,
+        leftIconImage: React.PropTypes.number,
         leftText: React.PropTypes.string,
         leftTextStyle: View.propTypes.style,
         onLeftPress: React.PropTypes.func,
@@ -109,6 +110,7 @@ export default class ActionBar extends Component {
         onTitlePress: React.PropTypes.func,
         rightBadge: React.PropTypes.number,
         rightIconName: React.PropTypes.string,
+        rightIconImage: React.PropTypes.number,
         rightText: React.PropTypes.string,
         rightTextStyle: View.propTypes.style,
         style: View.propTypes.style,
@@ -132,8 +134,7 @@ export default class ActionBar extends Component {
         );
     }
 
-    getIcon = (name, leftOrRightStyle) => {
-        let icon = null;
+    getIcon = (icon, name, leftOrRightStyle) => {
 
         switch (name) {
             case 'back':
@@ -195,10 +196,16 @@ export default class ActionBar extends Component {
         let rightImage = null;
 
         if (this.props.leftIconName) {
-            leftImage = this.getIcon(this.props.leftIconName, 'leftIcon');
+            leftImage = this.getIcon(null, this.props.leftIconName, 'leftIcon');
+        }
+        if(this.props.leftIconImage) {
+            leftImage = this.getIcon(this.props.leftIconImage, 'none', 'leftIcon');
         }
         if (this.props.rightIconName) {
-            rightImage = this.getIcon(this.props.rightIconName, 'rightIcon');
+            rightImage = this.getIcon(null, this.props.rightIconName, 'rightIcon');
+        }
+        if(this.props.rightIconImage) {
+            rightImage = this.getIcon(this.props.rightIconImage, 'none', 'rightIcon');
         }
 
         return (
@@ -219,6 +226,10 @@ export default class ActionBar extends Component {
                         ]}
                     >
                         {this.props.leftIconName
+                            ? leftImage
+                            : null
+                        }
+                        {this.props.leftIconImage
                             ? leftImage
                             : null
                         }
@@ -276,6 +287,10 @@ export default class ActionBar extends Component {
                             : null
                         }
                         {this.props.rightIconName
+                            ? rightImage
+                            : null
+                        }
+                        {this.props.rightIconImage
                             ? rightImage
                             : null
                         }
