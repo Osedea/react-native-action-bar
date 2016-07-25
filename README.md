@@ -72,14 +72,22 @@ export default class Example extends Component {
 Property Name | Type
 --- | ---
 backgroundColor | React.PropTypes.string
+iconStyle | Image.propTypes.style
 leftBadge | React.PropTypes.number
 leftIconName | React.PropTypes.string
+leftIconImage | React.PropTypes.number
+leftIconStyle | Image.propTypes.style
 leftText | React.PropTypes.string
+leftTextStyle | Text.propTypes.style
 onLeftPress | React.PropTypes.func
 onRightPress | React.PropTypes.func
 onTitlePress | React.PropTypes.func
 rightBadge | React.PropTypes.number
 rightIconName | React.PropTypes.string
+rightIconImage | React.PropTypes.number
+rightIconStyle | Image.propTypes.style
 rightText | React.PropTypes.string
+rightTextStyle | Text.propTypes.style
 style | View.propTypes.style
 title | React.PropTypes.string
+titleStyle | Text.propTypes.style

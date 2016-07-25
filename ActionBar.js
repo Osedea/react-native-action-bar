@@ -44,14 +44,13 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         resizeMode: 'contain',
-        tintColor: colors.defaultTextAndIconColor,
         marginTop: -3,
         marginBottom: 5,
     },
-    leftIcon: {
+    leftIconStyle: {
         marginLeft: 10,
     },
-    rightIcon: {
+    rightIconStyle: {
         marginRight: 5,
         marginLeft: 5,
     },
@@ -100,17 +99,25 @@ const styles = StyleSheet.create({
 export default class ActionBar extends Component {
     static propTypes = {
         backgroundColor: React.PropTypes.string,
+        iconStyle: Image.propTypes.style,
         leftBadge: React.PropTypes.number,
         leftIconName: React.PropTypes.string,
+        leftIconImage: React.PropTypes.number,
+        leftIconStyle: Image.propTypes.style,
         leftText: React.PropTypes.string,
+        leftTextStyle: Text.propTypes.style,
         onLeftPress: React.PropTypes.func,
         onRightPress: React.PropTypes.func,
         onTitlePress: React.PropTypes.func,
         rightBadge: React.PropTypes.number,
         rightIconName: React.PropTypes.string,
+        rightIconImage: React.PropTypes.number,
+        rightIconStyle: Image.propTypes.style,
         rightText: React.PropTypes.string,
+        rightTextStyle: Text.propTypes.style,
         style: View.propTypes.style,
         title: React.PropTypes.string,
+        titleStyle: Text.propTypes.style,
     };
 
     static defaultProps = {
@@ -118,6 +125,9 @@ export default class ActionBar extends Component {
         leftIconName: 'back',
         backgroundColor: colors.darkGrey,
         onLeftPress: Actions.pop,
+        iconStyle: {
+            tintColor: colors.defaultTextAndIconColor,
+        }
     };
 
     constructor(props) {
@@ -130,8 +140,7 @@ export default class ActionBar extends Component {
         );
     }
 
-    getIcon = (name, leftOrRightStyle) => {
-        let icon = null;
+    getIcon = (icon, name, leftOrRightStyle) => {
 
         switch (name) {
             case 'back':
@@ -167,10 +176,9 @@ export default class ActionBar extends Component {
                 <Image
                     style={[
                         styles.icon,
+                        this.props.iconStyle,
                         styles[leftOrRightStyle],
-                        this.props.style
-                            ? this.props.style[leftOrRightStyle]
-                            : {},
+                        this.props[leftOrRightStyle],
                     ]}
                     source={icon}
                 />
@@ -193,10 +201,16 @@ export default class ActionBar extends Component {
         let rightImage = null;
 
         if (this.props.leftIconName) {
-            leftImage = this.getIcon(this.props.leftIconName, 'leftIcon');
+            leftImage = this.getIcon(null, this.props.leftIconName, 'leftIconStyle');
+        }
+        if(this.props.leftIconImage) {
+            leftImage = this.getIcon(this.props.leftIconImage, 'none', 'leftIconStyle');
         }
         if (this.props.rightIconName) {
-            rightImage = this.getIcon(this.props.rightIconName, 'rightIcon');
+            rightImage = this.getIcon(null, this.props.rightIconName, 'rightIconStyle');
+        }
+        if(this.props.rightIconImage) {
+            rightImage = this.getIcon(this.props.rightIconImage, 'none', 'rightIconStyle');
         }
 
         return (
@@ -204,6 +218,7 @@ export default class ActionBar extends Component {
                 style={[
                     styles.container,
                     { backgroundColor: this.props.backgroundColor },
+                    this.props.style,
                 ]}
             >
                 <TouchableWithoutFeedback
@@ -220,15 +235,17 @@ export default class ActionBar extends Component {
                             ? leftImage
                             : null
                         }
+                        {this.props.leftIconImage
+                            ? leftImage
+                            : null
+                        }
                         {this.props.leftText
                             ? <Text
                                 allowFontScaling={false}
                                 style={[
                                     styles.text,
                                     styles.leftText,
-                                    this.props.style
-                                        ? this.props.style.leftText
-                                        : {},
+                                    this.props.leftTextStyle,
                                 ]}
                             >
                                 {this.props.leftText}
@@ -248,9 +265,12 @@ export default class ActionBar extends Component {
                     <Text
                         onPress={this.props.onTitlePress}
                         allowFontScaling={false}
-                        style={styles.title}
+                        style={[
+                            styles.title,
+                            this.props.titleStyle,
+                        ]}
                     >
-                        {this.props.title.toUpperCase()}
+                        {this.props.title}
                     </Text>
                 </View>
                 <TouchableWithoutFeedback
@@ -268,9 +288,7 @@ export default class ActionBar extends Component {
                                 style={[
                                     styles.text,
                                     styles.rightText,
-                                    this.props.style
-                                        ? this.props.style.rightText
-                                        : {},
+                                    this.props.rightTextStyle
                                 ]}
                             >
                                 {this.props.rightText}
@@ -278,6 +296,10 @@ export default class ActionBar extends Component {
                             : null
                         }
                         {this.props.rightIconName
+                            ? rightImage
+                            : null
+                        }
+                        {this.props.rightIconImage
                             ? rightImage
                             : null
                         }
