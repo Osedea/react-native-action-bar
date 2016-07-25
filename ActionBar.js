@@ -103,12 +103,14 @@ export default class ActionBar extends Component {
         leftBadge: React.PropTypes.number,
         leftIconName: React.PropTypes.string,
         leftText: React.PropTypes.string,
+        leftTextStyle: View.propTypes.style,
         onLeftPress: React.PropTypes.func,
         onRightPress: React.PropTypes.func,
         onTitlePress: React.PropTypes.func,
         rightBadge: React.PropTypes.number,
         rightIconName: React.PropTypes.string,
         rightText: React.PropTypes.string,
+        rightTextStyle: View.propTypes.style,
         style: View.propTypes.style,
         title: React.PropTypes.string,
     };
@@ -226,9 +228,7 @@ export default class ActionBar extends Component {
                                 style={[
                                     styles.text,
                                     styles.leftText,
-                                    this.props.style
-                                        ? this.props.style.leftText
-                                        : {},
+                                    this.props.leftTextStyle
                                 ]}
                             >
                                 {this.props.leftText}
@@ -268,9 +268,7 @@ export default class ActionBar extends Component {
                                 style={[
                                     styles.text,
                                     styles.rightText,
-                                    this.props.style
-                                        ? this.props.style.rightText
-                                        : {},
+                                    this.props.rightTextStyle
                                 ]}
                             >
                                 {this.props.rightText}
