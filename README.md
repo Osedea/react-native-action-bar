@@ -72,6 +72,7 @@ export default class Example extends Component {
 Property Name | Type
 --- | ---
 backgroundColor | React.PropTypes.string
+iconStyle | Image.propTypes.style
 leftBadge | React.PropTypes.number
 leftIconName | React.PropTypes.string
 leftIconImage | React.PropTypes.number

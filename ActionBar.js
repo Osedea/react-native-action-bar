@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
 export default class ActionBar extends Component {
     static propTypes = {
         backgroundColor: React.PropTypes.string,
+        iconStyle: Image.propTypes.style,
         leftBadge: React.PropTypes.number,
         leftIconName: React.PropTypes.string,
         leftIconImage: React.PropTypes.number,
@@ -124,6 +125,9 @@ export default class ActionBar extends Component {
         leftIconName: 'back',
         backgroundColor: colors.darkGrey,
         onLeftPress: Actions.pop,
+        iconStyle: {
+            tintColor: colors.defaultTextAndIconColor,
+        }
     };
 
     constructor(props) {
@@ -172,6 +176,7 @@ export default class ActionBar extends Component {
                 <Image
                     style={[
                         styles.icon,
+                        this.props.iconStyle,
                         styles[leftOrRightStyle],
                         this.props[leftOrRightStyle],
                     ]}
