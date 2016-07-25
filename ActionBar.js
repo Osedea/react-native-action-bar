@@ -44,14 +44,13 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         resizeMode: 'contain',
-        tintColor: colors.defaultTextAndIconColor,
         marginTop: -3,
         marginBottom: 5,
     },
-    leftIcon: {
+    leftIconStyle: {
         marginLeft: 10,
     },
-    rightIcon: {
+    rightIconStyle: {
         marginRight: 5,
         marginLeft: 5,
     },
@@ -103,19 +102,21 @@ export default class ActionBar extends Component {
         leftBadge: React.PropTypes.number,
         leftIconName: React.PropTypes.string,
         leftIconImage: React.PropTypes.number,
+        leftIconStyle: Image.propTypes.style,
         leftText: React.PropTypes.string,
-        leftTextStyle: View.propTypes.style,
+        leftTextStyle: Text.propTypes.style,
         onLeftPress: React.PropTypes.func,
         onRightPress: React.PropTypes.func,
         onTitlePress: React.PropTypes.func,
         rightBadge: React.PropTypes.number,
         rightIconName: React.PropTypes.string,
         rightIconImage: React.PropTypes.number,
+        rightIconStyle: Image.propTypes.style,
         rightText: React.PropTypes.string,
-        rightTextStyle: View.propTypes.style,
+        rightTextStyle: Text.propTypes.style,
         style: View.propTypes.style,
         title: React.PropTypes.string,
-        titleStyle: View.propTypes.style,
+        titleStyle: Text.propTypes.style,
     };
 
     static defaultProps = {
@@ -172,9 +173,7 @@ export default class ActionBar extends Component {
                     style={[
                         styles.icon,
                         styles[leftOrRightStyle],
-                        this.props.style
-                            ? this.props.style[leftOrRightStyle]
-                            : {},
+                        this.props[leftOrRightStyle],
                     ]}
                     source={icon}
                 />
@@ -197,16 +196,16 @@ export default class ActionBar extends Component {
         let rightImage = null;
 
         if (this.props.leftIconName) {
-            leftImage = this.getIcon(null, this.props.leftIconName, 'leftIcon');
+            leftImage = this.getIcon(null, this.props.leftIconName, 'leftIconStyle');
         }
         if(this.props.leftIconImage) {
-            leftImage = this.getIcon(this.props.leftIconImage, 'none', 'leftIcon');
+            leftImage = this.getIcon(this.props.leftIconImage, 'none', 'leftIconStyle');
         }
         if (this.props.rightIconName) {
-            rightImage = this.getIcon(null, this.props.rightIconName, 'rightIcon');
+            rightImage = this.getIcon(null, this.props.rightIconName, 'rightIconStyle');
         }
         if(this.props.rightIconImage) {
-            rightImage = this.getIcon(this.props.rightIconImage, 'none', 'rightIcon');
+            rightImage = this.getIcon(this.props.rightIconImage, 'none', 'rightIconStyle');
         }
 
         return (
@@ -214,6 +213,7 @@ export default class ActionBar extends Component {
                 style={[
                     styles.container,
                     { backgroundColor: this.props.backgroundColor },
+                    this.props.style,
                 ]}
             >
                 <TouchableWithoutFeedback
