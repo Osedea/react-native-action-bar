@@ -115,6 +115,7 @@ export default class ActionBar extends Component {
         rightTextStyle: View.propTypes.style,
         style: View.propTypes.style,
         title: React.PropTypes.string,
+        titleStyle: View.propTypes.style,
     };
 
     static defaultProps = {
@@ -239,7 +240,7 @@ export default class ActionBar extends Component {
                                 style={[
                                     styles.text,
                                     styles.leftText,
-                                    this.props.leftTextStyle
+                                    this.props.leftTextStyle,
                                 ]}
                             >
                                 {this.props.leftText}
@@ -259,9 +260,12 @@ export default class ActionBar extends Component {
                     <Text
                         onPress={this.props.onTitlePress}
                         allowFontScaling={false}
-                        style={styles.title}
+                        style={[
+                            styles.title,
+                            this.props.titleStyle,
+                        ]}
                     >
-                        {this.props.title.toUpperCase()}
+                        {this.props.title}
                     </Text>
                 </View>
                 <TouchableWithoutFeedback
