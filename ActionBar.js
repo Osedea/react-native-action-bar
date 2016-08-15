@@ -189,6 +189,9 @@ export default class ActionBar extends Component {
                     <Spinner />
                 </View>
             );
+        } else if (name === 'none') {
+            // Don't render anything
+            return null;
         } else {
             console.log('Invalid icon name ?');
 
