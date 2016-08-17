@@ -224,46 +224,49 @@ export default class ActionBar extends Component {
                     this.props.style,
                 ]}
             >
-                <TouchableWithoutFeedback
-                    onPress={this.handleLeftPress}
-                    style={styles.touchButton}
-                >
-                    <View
-                        style={[
-                            styles.child,
-                            styles.leftChild,
-                        ]}
+                {this.props.leftIconName === 'none' && !this.props.rightIconName
+                    ? null
+                    : <TouchableWithoutFeedback
+                        onPress={this.handleLeftPress}
+                        style={styles.touchButton}
                     >
-                        {this.props.leftIconName
-                            ? leftImage
-                            : null
-                        }
-                        {this.props.leftIconImage
-                            ? leftImage
-                            : null
-                        }
-                        {this.props.leftText
-                            ? <Text
-                                allowFontScaling={false}
-                                style={[
-                                    styles.text,
-                                    styles.leftText,
-                                    this.props.leftTextStyle,
-                                ]}
-                            >
-                                {this.props.leftText}
-                            </Text>
-                            : null
-                        }
-                        {this.props.leftBadge
-                            ? <Badge
-                                isLeft={true}
-                                number={this.props.leftBadge}
-                            />
-                            : null
-                        }
-                    </View>
-                </TouchableWithoutFeedback>
+                        <View
+                            style={[
+                                styles.child,
+                                styles.leftChild,
+                            ]}
+                        >
+                            {this.props.leftIconName
+                                ? leftImage
+                                : null
+                            }
+                            {this.props.leftIconImage
+                                ? leftImage
+                                : null
+                            }
+                            {this.props.leftText
+                                ? <Text
+                                    allowFontScaling={false}
+                                    style={[
+                                        styles.text,
+                                        styles.leftText,
+                                        this.props.leftTextStyle,
+                                    ]}
+                                >
+                                    {this.props.leftText}
+                                </Text>
+                                : null
+                            }
+                            {this.props.leftBadge
+                                ? <Badge
+                                    isLeft={true}
+                                    number={this.props.leftBadge}
+                                />
+                                : null
+                            }
+                        </View>
+                    </TouchableWithoutFeedback>
+                }
                 <View style={styles.titleContainer}>
                     <Text
                         onPress={this.props.onTitlePress}
@@ -276,42 +279,45 @@ export default class ActionBar extends Component {
                         {this.props.title}
                     </Text>
                 </View>
-                <TouchableWithoutFeedback
-                    onPress={this.props.onRightPress}
-                >
-                    <View
-                        style={[
-                            styles.child,
-                            styles.rightChild,
-                        ]}
+                {!this.props.rightIconName && this.props.leftIconName === 'none'
+                    ? null
+                    : <TouchableWithoutFeedback
+                        onPress={this.props.onRightPress}
                     >
-                        {this.props.rightText
-                            ? <Text
-                                allowFontScaling={false}
-                                style={[
-                                    styles.text,
-                                    styles.rightText,
-                                    this.props.rightTextStyle
-                                ]}
-                            >
-                                {this.props.rightText}
-                            </Text>
-                            : null
-                        }
-                        {this.props.rightIconName
-                            ? rightImage
-                            : null
-                        }
-                        {this.props.rightIconImage
-                            ? rightImage
-                            : null
-                        }
-                        {this.props.rightBadge
-                            ? <Badge number={this.props.rightBadge} />
-                            : null
-                        }
-                    </View>
-                </TouchableWithoutFeedback>
+                        <View
+                            style={[
+                                styles.child,
+                                styles.rightChild,
+                            ]}
+                        >
+                            {this.props.rightText
+                                ? <Text
+                                    allowFontScaling={false}
+                                    style={[
+                                        styles.text,
+                                        styles.rightText,
+                                        this.props.rightTextStyle
+                                    ]}
+                                >
+                                    {this.props.rightText}
+                                </Text>
+                                : null
+                            }
+                            {this.props.rightIconName
+                                ? rightImage
+                                : null
+                            }
+                            {this.props.rightIconImage
+                                ? rightImage
+                                : null
+                            }
+                            {this.props.rightBadge
+                                ? <Badge number={this.props.rightBadge} />
+                                : null
+                            }
+                        </View>
+                    </TouchableWithoutFeedback>
+                }
             </View>
         );
     }
