@@ -225,9 +225,11 @@ export default class ActionBar extends Component {
                 ]}
             >
                 {this.props.leftIconName === 'none'
+                && !this.props.rightIconName
                 && !this.props.rightText
                 && !this.props.leftText
-                && !this.props.rightIconName
+                && !this.props.leftIconImage
+                && !this.props.rightIconImage
                     ? null
                     : <TouchableWithoutFeedback
                         onPress={this.handleLeftPress}
@@ -283,9 +285,11 @@ export default class ActionBar extends Component {
                     </Text>
                 </View>
                 {!this.props.rightIconName
+                && this.props.leftIconName === 'none'
                 && !this.props.rightText
                 && !this.props.leftText
-                && this.props.leftIconName === 'none'
+                && !this.props.rightIconImage
+                && !this.props.leftIconImage
                     ? null
                     : <TouchableWithoutFeedback
                         onPress={this.props.onRightPress}
