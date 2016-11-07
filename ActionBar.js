@@ -115,8 +115,10 @@ export default class ActionBar extends Component {
         rightIconStyle: Image.propTypes.style,
         rightText: React.PropTypes.string,
         rightTextStyle: Text.propTypes.style,
+        sideTouchableStyle: View.propTypes.style,
         style: View.propTypes.style,
         title: React.PropTypes.string,
+        titleContainerStyle: View.propTypes.style,
         titleStyle: Text.propTypes.style,
     };
 
@@ -233,7 +235,10 @@ export default class ActionBar extends Component {
                     ? null
                     : <TouchableWithoutFeedback
                         onPress={this.handleLeftPress}
-                        style={styles.touchButton}
+                        style={[
+                            styles.touchButton,
+                            this.props.sideTouchableStyle,
+                        ]}
                     >
                         <View
                             style={[
@@ -272,7 +277,12 @@ export default class ActionBar extends Component {
                         </View>
                     </TouchableWithoutFeedback>
                 }
-                <View style={styles.titleContainer}>
+                <View
+                    style={[
+                        styles.titleContainer,
+                        this.props.titleContainerStyle,
+                    ]}
+                >
                     <Text
                         onPress={this.props.onTitlePress}
                         allowFontScaling={false}
