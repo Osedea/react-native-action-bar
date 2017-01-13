@@ -1,6 +1,6 @@
 {
   "name": "react-native-action-bar",
-  "version": "1.0.8",
+  "version": "2.0.0",
   "description": "An Android-like action bar for react-native",
   "main": "ActionBar.js",
   "scripts": {
@@ -14,7 +14,8 @@
     "react-native",
     "action",
     "bar",
-    "top"
+    "top",
+    "ios and android"
   ],
   "author": "Adrien Thiery <adrien.thiery@osedea.com>",
   "license": "MIT",
@@ -23,12 +24,10 @@
   },
   "homepage": "https://github.com/Osedea/react-native-action-bar#readme",
   "dependencies": {
-    "lodash": "^4.13.1",
-    "react-native-gifted-spinner": "0.0.4",
-    "react-native-router-flux": "^3.26.13"
+    "color": "~1.0.3",
+    "lodash": "^4.13.1"
   },
   "devDependencies": {
-    "react": "15.0.2",
-    "react-native": "0.26.2"
+    "eslint-config-osedea": "~0.4.2"
   }
 }
