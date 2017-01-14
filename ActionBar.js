@@ -18,204 +18,283 @@ import React, { Component } from 'react';
 import {
     Image,
     Platform,
+    StatusBar,
     StyleSheet,
     Text,
     TouchableWithoutFeedback,
     View,
 } from 'react-native';
 import { throttle } from 'lodash';
+import color from 'color';
 
 import Badge from './Badge';
-import Spinner from 'react-native-gifted-spinner';
-import { Actions } from 'react-native-router-flux';
+import Icon from './Icon';
 
 const colors = {
     defaultTextAndIconColor: '#FFFFFF',
+    defaultSeparatorColor: '#CCCCCC',
 };
-
-const styles = StyleSheet.create({
-    container: {
-        height: (Platform.OS === 'ios') ? 50 : 40,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-    },
-    icon: {
-        width: 20,
-        height: 20,
-        resizeMode: 'contain',
-        marginTop: -3,
-        marginBottom: 5,
-    },
-    leftIconStyle: {
-        marginLeft: 10,
-    },
-    rightIconStyle: {
-        marginRight: 5,
-        marginLeft: 5,
-    },
-    child: {
-        flex: 1,
-        paddingLeft: 5,
-        padding: 10,
-        paddingBottom: 5,
-        flexDirection: 'row',
-    },
-    leftChild: {
-        justifyContent: 'flex-start',
-    },
-    rightChild: {
-        justifyContent: 'flex-end',
-    },
-    touchButton: {
-        flex: 1,
-        alignSelf: 'flex-end',
-    },
-    titleContainer: {
-        flex: 2,
-        alignSelf: 'flex-end',
-    },
-    title: {
-        textAlign: 'center',
-        fontSize: 14,
-        marginBottom: 10,
-        color: colors.defaultTextAndIconColor,
-        fontWeight: 'bold',
-    },
-    rightText: {
-        textAlign: 'right',
-        marginRight: 5,
-    },
-    text: {
-        color: colors.defaultTextAndIconColor,
-        marginBottom: 5,
-    },
-    leftText: {
-        textAlign: 'left',
-        marginLeft: 10,
-    },
-});
 
 export default class ActionBar extends Component {
     static propTypes = {
+        allowFontScaling: React.PropTypes.bool,
         backgroundColor: React.PropTypes.string,
-        iconStyle: Image.propTypes.style,
-        leftBadge: React.PropTypes.number,
-        leftIconName: React.PropTypes.string,
-        leftIconImage: React.PropTypes.number,
-        leftIconStyle: Image.propTypes.style,
-        leftText: React.PropTypes.string,
-        leftTextStyle: Text.propTypes.style,
+        badgeColor: React.PropTypes.string,
+        badgeTextColor: React.PropTypes.string,
+        containerStyle: View.propTypes.style,
+        elevation: React.PropTypes.number,
+        iconContainerStyle: View.propTypes.style,
+        iconImageStyle: Image.propTypes.style,
+        isLeftBadgeLeft: React.PropTypes.bool,
+        leftBadge: Badge.propTypes.content,
+        leftIconContainerStyle: Icon.propTypes.containerStyle,
+        leftIconImage: Icon.propTypes.source,
+        leftIconImageStyle: Icon.propTypes.imageStyle,
+        leftIconName: Icon.propTypes.name,
+        leftTouchableChildStyle: View.propTypes.style,
+        leftZoneContentContainerStyle: View.propTypes.style,
         onLeftPress: React.PropTypes.func,
-        onRightPress: React.PropTypes.func,
+        onRightTextPress: React.PropTypes.func,
         onTitlePress: React.PropTypes.func,
-        rightBadge: React.PropTypes.number,
-        rightIconName: React.PropTypes.string,
-        rightIconImage: React.PropTypes.number,
-        rightIconStyle: Image.propTypes.style,
+        renderLeftSide: React.PropTypes.func,
+        renderRightSide: React.PropTypes.func,
+        rightIconContainerStyle: Icon.propTypes.containerStyle,
+        rightIconImageStyle: Icon.propTypes.imageStyle,
+        rightIcons: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                ...Icon.propTypes,
+                badge: Badge.propTypes.content,
+                onPress: React.PropTypes.func.isRequired,
+            })
+        ),
         rightText: React.PropTypes.string,
         rightTextStyle: Text.propTypes.style,
-        sideTouchableStyle: View.propTypes.style,
-        style: View.propTypes.style,
+        rightTouchableChildStyle: View.propTypes.style,
+        rightZoneContentContainerStyle: View.propTypes.style,
+        shadows: React.PropTypes.bool,
+        throttleDelay: React.PropTypes.number,
         title: React.PropTypes.string,
         titleContainerStyle: View.propTypes.style,
         titleStyle: Text.propTypes.style,
     };
 
     static defaultProps = {
-        title: '',
-        leftIconName: 'back',
-        backgroundColor: colors.darkGrey,
-        onLeftPress: Actions.pop,
+        allowFontScaling: false,
+        backgroundColor: '#339933',
         iconStyle: {
             tintColor: colors.defaultTextAndIconColor,
-        }
+        },
+        leftIconName: '',
+        shadows: true,
+        throttleDelay: 750,
+        title: '',
+        rightIcons: [],
     };
 
     constructor(props) {
         super(props);
 
-        this.handleLeftPress = throttle(
-            props.onLeftPress,
-            750,
-            { trailing: false }
-        );
+        this.oldBarStyle = StatusBar._defaultProps.barStyle.value;
+        this.oldColor = StatusBar._defaultProps.backgroundColor.value;
+
+        // Set BackgroundColor of Info bar according to this.props.backgroundColor
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(this.props.backgroundColor);
+        } else {
+            StatusBar.setBarStyle(
+                color(this.props.backgroundColor).luminosity() < 0.5
+                    ? 'light-content'
+                    : 'default'
+            );
+        }
     }
 
-    getIcon = (icon, name, leftOrRightStyle) => {
-
-        switch (name) {
-            case 'back':
-                icon = require('./ActionBarImages/back.png');
-                break;
-            case 'star':
-                icon = require('./ActionBarImages/star.png');
-                break;
-            case 'phone':
-                icon = require('./ActionBarImages/phone.png');
-                break;
-            case 'plus':
-                icon = require('./ActionBarImages/plus.png');
-                break;
-            case 'starOutline':
-                icon = require('./ActionBarImages/star_outline.png');
-                break;
-            case 'flag':
-                icon = require('./ActionBarImages/flag.png');
-                break;
-            case 'menu':
-                icon = require('./ActionBarImages/hamburger.png');
-                break;
-            case 'none':
-            case 'loading':
-                break;
-            default:
-                icon = require('./ActionBarImages/back.png');
-        }
-
-        if (icon) {
-            return (
-                <Image
-                    style={[
-                        styles.icon,
-                        this.props.iconStyle,
-                        styles[leftOrRightStyle],
-                        this.props[leftOrRightStyle],
-                    ]}
-                    source={icon}
-                />
-            );
-        } else if (name === 'loading') {
-            return (
-                <View style={styles[leftOrRightStyle]}>
-                    <Spinner />
-                </View>
-            );
-        } else if (name === 'none') {
-            // Don't render anything
-            return null;
+    componentWillUnmount() {
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(this.oldColor);
         } else {
-            console.log('Invalid icon name ?');
-
-            return null;
+            StatusBar.setBarStyle(this.oldBarStyle);
         }
-    };
+    }
+
+    handleLeftPress = this.props.onLeftPress
+        ? throttle(
+            this.props.onLeftPress,
+            this.props.throttleDelay,
+            { trailing: false }
+        )
+        : null;
 
     render() {
-        let leftImage = null;
-        let rightImage = null;
+        let leftSide = this.props.renderLeftSide
+            ? this.props.renderLeftSide()
+            : (
+                <View
+                    style={[
+                        styles.zoneContentContainer,
+                        styles.leftZoneContentContainer,
+                        this.props.leftZoneContentContainerStyle,
+                    ]}
+                >
+                    <TouchableWithoutFeedback
+                        onPress={this.handleLeftPress}
+                    >
+                        <View
+                            style={[
+                                styles.touchableChild,
+                                styles.leftTouchableChild,
+                                this.props.leftTouchableChildStyle,
+                            ]}
+                        >
+                            {this.props.leftIconName
+                                ? <Icon
+                                    name={this.props.leftIconName}
+                                    containerStyle={[
+                                        styles.leftIconContainerStyle,
+                                        this.props.iconContainerStyle,
+                                        this.props.leftIconContainerStyle,
+                                    ]}
+                                    imageStyle={[
+                                        styles.leftIconImageStyle,
+                                        this.props.iconImageStyle,
+                                        this.props.leftIconImageStyle,
+                                    ]}
+                                />
+                                : null
+                            }
+                            {this.props.leftIconImage
+                                ? <Icon
+                                    source={this.props.leftIconImage}
+                                    containerStyle={[
+                                        styles.leftIconContainerStyle,
+                                        this.props.iconContainerStyle,
+                                        this.props.leftIconContainerStyle,
+                                    ]}
+                                    imageStyle={[
+                                        styles.leftIconImageStyle,
+                                        this.props.iconImageStyle,
+                                        this.props.leftIconImageStyle,
+                                    ]}
+                                />
+                                : null
+                            }
+                            {this.props.leftBadge !== undefined
+                                ? <Badge
+                                    content={this.props.leftBadge}
+                                    color={this.props.badgeTextColor}
+                                    backgroundColor={this.props.badgeColor}
+                                    isLeft={Boolean(this.props.isLeftBadgeLeft)}
+                                />
+                                : null
+                            }
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+            );
 
-        if (this.props.leftIconName) {
-            leftImage = this.getIcon(null, this.props.leftIconName, 'leftIconStyle');
+        let rightSide = this.props.renderRightSide
+            ? this.props.renderRightSide()
+            : (
+                <View
+                    style={[
+                        styles.zoneContentContainer,
+                        styles.rightZoneContentContainer,
+                        this.props.rightZoneContentContainerStyle,
+                    ]}
+                >
+                    {this.props.rightText
+                        ? <Text
+                            style={[
+                                styles.text,
+                                styles.rightText,
+                                this.props.rightTextStyle,
+                            ]}
+                            allowFontScaling={this.props.allowFontScaling}
+                            onPress={this.props.onRightTextPress}
+                        >
+                            {this.props.rightText}
+                        </Text>
+                        : null
+                    }
+                    {this.props.rightIcons.map((iconObject, index) => (
+                        <TouchableWithoutFeedback
+                            key={`right-icon-${iconObject.name || index}`}
+                            onPress={throttle(
+                                iconObject.onPress,
+                                this.props.throttleDelay,
+                                { trailing: false }
+                            )}
+                        >
+                            <View
+                                style={[
+                                    styles.touchableChild,
+                                    styles.rightTouchableChild,
+                                    this.props.rightTouchableChildStyle,
+                                ]}
+                            >
+                                {iconObject.name
+                                    ? <Icon
+                                        name={iconObject.name}
+                                        containerStyle={[
+                                            styles.rightIconContainerStyle,
+                                            this.props.iconContainerStyle,
+                                            this.props.rightIconContainerStyle,
+                                            iconObject.containerStyle,
+                                        ]}
+                                        imageStyle={[
+                                            styles.rightIconImageStyle,
+                                            this.props.iconImageStyle,
+                                            this.props.rightIconImageStyle,
+                                            iconObject.imageStyle,
+                                        ]}
+                                    />
+                                    : null
+                                }
+                                {iconObject.image
+                                    ? <Icon
+                                        source={iconObject.image}
+                                        containerStyle={[
+                                            styles.rightIconContainerStyle,
+                                            this.props.iconContainerStyle,
+                                            this.props.rightIconContainerStyle,
+                                            iconObject.containerStyle,
+                                        ]}
+                                        imageStyle={[
+                                            styles.rightIconImageStyle,
+                                            this.props.iconImageStyle,
+                                            this.props.rightIconImageStyle,
+                                            iconObject.imageStyle,
+                                        ]}
+                                    />
+                                    : null
+                                }
+                                {iconObject.badge !== undefined
+                                    ? <Badge
+                                        isLeft={Boolean(iconObject.isBadgeLeft)}
+                                        content={iconObject.badge}
+                                        color={this.props.badgeTextColor}
+                                        backgroundColor={this.props.badgeColor}
+                                    />
+                                    : null
+                                }
+                            </View>
+                        </TouchableWithoutFeedback>
+                    ))}
+                </View>
+            );
+
+        if (!this.props.leftIconName && !this.props.leftIconImage && !this.props.renderLeftSide) {
+            leftSide = null;
         }
-        if(this.props.leftIconImage) {
-            leftImage = this.getIcon(this.props.leftIconImage, 'none', 'leftIconStyle');
+        if (!this.props.rightIcons.length && !this.props.renderRightSide) {
+            rightSide = null;
         }
-        if (this.props.rightIconName) {
-            rightImage = this.getIcon(null, this.props.rightIconName, 'rightIconStyle');
-        }
-        if(this.props.rightIconImage) {
-            rightImage = this.getIcon(this.props.rightIconImage, 'none', 'rightIconStyle');
+
+        // To have shadows on Android
+        let elevation = this.props.elevation;
+
+        if (!elevation) {
+            elevation = this.props.shadows ? 2 : 0;
         }
 
         return (
@@ -223,60 +302,12 @@ export default class ActionBar extends Component {
                 style={[
                     styles.container,
                     { backgroundColor: this.props.backgroundColor },
-                    this.props.style,
+                    this.props.shadows ? styles.shadows : null,
+                    this.props.containerStyle,
                 ]}
+                elevation={elevation}
             >
-                {this.props.leftIconName === 'none'
-                && !this.props.rightIconName
-                && !this.props.rightText
-                && !this.props.leftText
-                && !this.props.leftIconImage
-                && !this.props.rightIconImage
-                    ? null
-                    : <TouchableWithoutFeedback
-                        onPress={this.handleLeftPress}
-                        style={[
-                            styles.touchButton,
-                            this.props.sideTouchableStyle,
-                        ]}
-                    >
-                        <View
-                            style={[
-                                styles.child,
-                                styles.leftChild,
-                            ]}
-                        >
-                            {this.props.leftIconName
-                                ? leftImage
-                                : null
-                            }
-                            {this.props.leftIconImage
-                                ? leftImage
-                                : null
-                            }
-                            {this.props.leftText
-                                ? <Text
-                                    allowFontScaling={false}
-                                    style={[
-                                        styles.text,
-                                        styles.leftText,
-                                        this.props.leftTextStyle,
-                                    ]}
-                                >
-                                    {this.props.leftText}
-                                </Text>
-                                : null
-                            }
-                            {this.props.leftBadge
-                                ? <Badge
-                                    isLeft={true}
-                                    number={this.props.leftBadge}
-                                />
-                                : null
-                            }
-                        </View>
-                    </TouchableWithoutFeedback>
-                }
+                {leftSide}
                 <View
                     style={[
                         styles.titleContainer,
@@ -285,8 +316,10 @@ export default class ActionBar extends Component {
                 >
                     <Text
                         onPress={this.props.onTitlePress}
-                        allowFontScaling={false}
+                        allowFontScaling={this.props.allowFontScaling}
+                        numberOfLines={1}
                         style={[
+                            styles.text,
                             styles.title,
                             this.props.titleStyle,
                         ]}
@@ -294,51 +327,60 @@ export default class ActionBar extends Component {
                         {this.props.title}
                     </Text>
                 </View>
-                {!this.props.rightIconName
-                && this.props.leftIconName === 'none'
-                && !this.props.rightText
-                && !this.props.leftText
-                && !this.props.rightIconImage
-                && !this.props.leftIconImage
-                    ? null
-                    : <TouchableWithoutFeedback
-                        onPress={this.props.onRightPress}
-                    >
-                        <View
-                            style={[
-                                styles.child,
-                                styles.rightChild,
-                            ]}
-                        >
-                            {this.props.rightText
-                                ? <Text
-                                    allowFontScaling={false}
-                                    style={[
-                                        styles.text,
-                                        styles.rightText,
-                                        this.props.rightTextStyle
-                                    ]}
-                                >
-                                    {this.props.rightText}
-                                </Text>
-                                : null
-                            }
-                            {this.props.rightIconName
-                                ? rightImage
-                                : null
-                            }
-                            {this.props.rightIconImage
-                                ? rightImage
-                                : null
-                            }
-                            {this.props.rightBadge
-                                ? <Badge number={this.props.rightBadge} />
-                                : null
-                            }
-                        </View>
-                    </TouchableWithoutFeedback>
-                }
+                {rightSide}
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        height: (Platform.OS === 'ios') ? 60 : 40,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+    shadows: {
+        shadowOffset: {
+            height: 4,
+        },
+        shadowColor: colors.black,
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        ...(Platform.OS === 'android'
+            ? {
+                borderBottomWidth: 1,
+                borderBottomColor: colors.defaultSeparatorColor,
+            }
+            : {}
+        ),
+        zIndex: 9999,
+    },
+    zoneContentContainer: {
+        flexDirection: 'row',
+    },
+    leftZoneContentContainer: {
+    },
+    rightZoneContentContainer: {
+        justifyContent: 'flex-end',
+    },
+    titleContainer: {
+        flex: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
+        alignSelf: 'center',
+        marginTop: (Platform.OS === 'ios') ? 20 : 0,
+    },
+    title: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    rightText: {
+        alignSelf: 'center',
+        textAlign: 'right',
+        marginRight: 10,
+    },
+    text: {
+        color: colors.defaultTextAndIconColor,
+    },
+});
