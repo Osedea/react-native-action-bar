@@ -1,6 +1,6 @@
 {
   "name": "react-native-action-bar",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An Android-like action bar for react-native",
   "main": "ActionBar.js",
   "scripts": {

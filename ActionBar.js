@@ -42,6 +42,8 @@ export default class ActionBar extends Component {
         badgeColor: React.PropTypes.string,
         badgeTextColor: React.PropTypes.string,
         containerStyle: View.propTypes.style,
+        disableShadows: React.PropTypes.bool,
+        disableStatusBarHandling: React.PropTypes.bool,
         elevation: React.PropTypes.number,
         iconContainerStyle: View.propTypes.style,
         iconImageStyle: Image.propTypes.style,
@@ -71,7 +73,6 @@ export default class ActionBar extends Component {
         rightTextStyle: Text.propTypes.style,
         rightTouchableChildStyle: View.propTypes.style,
         rightZoneContentContainerStyle: View.propTypes.style,
-        shadows: React.PropTypes.bool,
         throttleDelay: React.PropTypes.number,
         title: React.PropTypes.string,
         titleContainerStyle: View.propTypes.style,
@@ -81,11 +82,12 @@ export default class ActionBar extends Component {
     static defaultProps = {
         allowFontScaling: false,
         backgroundColor: '#339933',
+        disableShadows: false,
+        disableStatusBarHandling: false,
         iconStyle: {
             tintColor: colors.defaultTextAndIconColor,
         },
         leftIconName: '',
-        shadows: true,
         throttleDelay: 750,
         title: '',
         rightIcons: [],
@@ -94,26 +96,30 @@ export default class ActionBar extends Component {
     constructor(props) {
         super(props);
 
-        this.oldBarStyle = StatusBar._defaultProps.barStyle.value;
-        this.oldColor = StatusBar._defaultProps.backgroundColor.value;
+        if (!props.disableStatusBarHandling) {
+            this.oldBarStyle = StatusBar._defaultProps.barStyle.value;
+            this.oldColor = StatusBar._defaultProps.backgroundColor.value;
 
-        // Set BackgroundColor of Info bar according to this.props.backgroundColor
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(this.props.backgroundColor);
-        } else {
-            StatusBar.setBarStyle(
-                color(this.props.backgroundColor).luminosity() < 0.5
-                    ? 'light-content'
-                    : 'default'
-            );
+            // Set BackgroundColor of Info bar according to this.props.backgroundColor
+            if (Platform.OS === 'android') {
+                StatusBar.setBackgroundColor(this.props.backgroundColor);
+            } else {
+                StatusBar.setBarStyle(
+                    color(this.props.backgroundColor).luminosity() < 0.5
+                        ? 'light-content'
+                        : 'default'
+                );
+            }
         }
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor(this.oldColor);
-        } else {
-            StatusBar.setBarStyle(this.oldBarStyle);
+        if (!this.props.disableStatusBarHandling) {
+            if (Platform.OS === 'android') {
+                StatusBar.setBackgroundColor(this.oldColor);
+            } else {
+                StatusBar.setBarStyle(this.oldBarStyle);
+            }
         }
     }
 
@@ -294,7 +300,7 @@ export default class ActionBar extends Component {
         let elevation = this.props.elevation;
 
         if (!elevation) {
-            elevation = this.props.shadows ? 2 : 0;
+            elevation = !this.props.disableShadows ? 2 : 0;
         }
 
         return (
@@ -302,7 +308,7 @@ export default class ActionBar extends Component {
                 style={[
                     styles.container,
                     { backgroundColor: this.props.backgroundColor },
-                    this.props.shadows ? styles.shadows : null,
+                    !this.props.disableShadows ? styles.shadows : null,
                     this.props.containerStyle,
                 ]}
                 elevation={elevation}

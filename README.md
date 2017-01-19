@@ -64,6 +64,8 @@ backgroundColor | React.PropTypes.string | The background color of the Bar
 badgeColor | [Badge](./Badge.js).propTypes.backgroundColor | The color of all badges
 badgeTextColor | [Badge](./Badge.js).propTypes.color | The color of the text of the badges
 containerStyle | View.propTypes.style | Style of the container of the bar (has the backgroundColor)
+disableShadows | React.PropTypes.bool | If you want the ActionBar to drop a shadow or not (The default is `false`)
+disableStatusBarHandling | React.PropTypes.bool | If you want the ActionBar to set the color/style of the StatusBar (The default is `false`)
 elevation | React.PropTypes.number | On Android, to 'control' the Shadow dropped by the bar (default is `2`)
 iconContainerStyle | View.propTypes.style | See the [Icon](./Icon.js) component (applies to all Icons (left and right)
 iconImageStyle | Image.propTypes.style | See the [Icon](./Icon.js) component (applies to all Icons (left and right)
@@ -87,7 +89,6 @@ rightText | React.PropTypes.string | The text to display on the right
 rightTextStyle | Text.propTypes.style | Style of the text to display on the right
 rightTouchableChildStyle | View.propTypes.style | The style of the View inside the `TouchableWithoutFeedback` element for all the Icons on the right
 rightZoneContentContainerStyle | View.propTypes.style | The style of the View around all the Icons + Text on the right
-shadows | React.PropTypes.bool | If you want the ActionBar to drop a shadow or not (The default is `true`)
 throttleDelay | React.PropTypes.number | The delay to throttle the presses on the Icons (The default is `750ms`)
 title | React.PropTypes.string | The Text of the Title
 titleContainerStyle | View.propTypes.style | The style of the `View` containing the `Text` element for the Title
