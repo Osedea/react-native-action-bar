@@ -13,7 +13,7 @@ Check that [README](https://github.com/Osedea/react-native-action-bar/blob/965d0
 
 iOS             |  Android
 :-------------------------:|:-------------------------:
-<img src="./doc-images/ios.png" height="500"/> | <img src="./doc-images/android.png" height="500"/>
+<img src="https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/ios.png" height="500"/> | <img src="https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/android.png" height="500"/>
 
 ```
 <ActionBar
@@ -108,15 +108,15 @@ titleStyle | Text.propTypes.style | The style of the `Text` element for the Titl
 # Predefined Icons
 
 Right now the following Icons are defined:
- * <img src='./doc-images/back.png' width=40 /> back
- * <img src='./doc-images/flag.png' width=40 /> flag
- * <img src='./doc-images/loading.png' width=40 /> loading
- * <img src='./doc-images/location.png' width=40 /> location
- * <img src='./doc-images/menu.png' width=40 /> menu
- * <img src='./doc-images/phone.png' width=40 /> phone
- * <img src='./doc-images/plus.png' width=40 /> plus
- * <img src='./doc-images/star.png' width=40 /> star
- * <img src='./doc-images/star-outline.png' width=40 /> star-outline
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/back.png' width=40 /> back
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/flag.png' width=40 /> flag
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/loading.png' width=40 /> loading
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/location.png' width=40 /> location
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/menu.png' width=40 /> menu
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/phone.png' width=40 /> phone
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/plus.png' width=40 /> plus
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/star.png' width=40 /> star
+ * <img src='https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/star-outline.png' width=40 /> star-outline
 
 # Example
 
