@@ -15,7 +15,7 @@ iOS             |  Android
 :-------------------------:|:-------------------------:
 <img src="https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/ios.png" height="500"/> | <img src="https://cdn.rawgit.com/Osedea/react-native-action-bar/603a698fe435c5e4ce860e80a2fa7d839d3fee3a/doc-images/android.png" height="500"/>
 
-```
+```js
 <ActionBar
     containerStyle={styles.bar}
     title={'React-native-action-bar Example'}
