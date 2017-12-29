@@ -3508,8 +3508,9 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-action-bar@../:
-  version "2.0.2"
+react-native-action-bar@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-action-bar/-/react-native-action-bar-2.0.3.tgz#6c89fe8b07cbe0b18d3f81e75dff669193bdfbb3"
   dependencies:
     color "~1.0.3"
     lodash "^4.13.1"
