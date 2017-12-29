@@ -1,6 +1,6 @@
 {
   "name": "react-native-action-bar",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "An Android-like action bar for react-native",
   "main": "ActionBar.js",
   "scripts": {
@@ -25,7 +25,8 @@
   "homepage": "https://github.com/Osedea/react-native-action-bar#readme",
   "dependencies": {
     "color": "~1.0.3",
-    "lodash": "^4.13.1"
+    "lodash": "^4.13.1",
+    "proptypes": "^1.1.0"
   },
   "devDependencies": {
     "eslint-config-osedea": "~0.4.2"

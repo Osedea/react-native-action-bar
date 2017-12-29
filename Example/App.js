@@ -1,17 +1,24 @@
 /**
-* Sample React Native App
-* https://github.com/facebook/react-native
-* @flow
-*/
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
 
 import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View
+  Platform,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import ActionBar from 'react-native-action-bar';
+
+const instructions = Platform.select({
+    ios: 'Press Cmd+R to reload,\n' +
+      'Cmd+D or shake for dev menu',
+    android: 'Double tap R on your keyboard to reload,\n' +
+      'Shake or press menu button for dev menu',
+});
 
 export default class Example extends Component {
     render() {
@@ -52,11 +59,10 @@ export default class Example extends Component {
                     Welcome to React Native!
                 </Text>
                 <Text style={styles.instructions}>
-                    To get started, edit index.android.js
+                    To get started, edit App.js
                 </Text>
                 <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
+                    {instructions}
                 </Text>
             </View>
         );
@@ -80,5 +86,3 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
-
-AppRegistry.registerComponent('Example', () => Example);

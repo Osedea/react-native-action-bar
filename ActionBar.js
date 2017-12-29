@@ -14,6 +14,7 @@
 */
 
 import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 
 import {
     Image,
@@ -37,17 +38,17 @@ const colors = {
 
 export default class ActionBar extends Component {
     static propTypes = {
-        allowFontScaling: React.PropTypes.bool,
-        backgroundColor: React.PropTypes.string,
-        badgeColor: React.PropTypes.string,
-        badgeTextColor: React.PropTypes.string,
+        allowFontScaling: PropTypes.bool,
+        backgroundColor: PropTypes.string,
+        badgeColor: PropTypes.string,
+        badgeTextColor: PropTypes.string,
         containerStyle: View.propTypes.style,
-        disableShadows: React.PropTypes.bool,
-        disableStatusBarHandling: React.PropTypes.bool,
-        elevation: React.PropTypes.number,
+        disableShadows: PropTypes.bool,
+        disableStatusBarHandling: PropTypes.bool,
+        elevation: PropTypes.number,
         iconContainerStyle: View.propTypes.style,
         iconImageStyle: Image.propTypes.style,
-        isLeftBadgeLeft: React.PropTypes.bool,
+        isLeftBadgeLeft: PropTypes.bool,
         leftBadge: Badge.propTypes.content,
         leftIconContainerStyle: Icon.propTypes.containerStyle,
         leftIconImage: Icon.propTypes.source,
@@ -55,26 +56,26 @@ export default class ActionBar extends Component {
         leftIconName: Icon.propTypes.name,
         leftTouchableChildStyle: View.propTypes.style,
         leftZoneContentContainerStyle: View.propTypes.style,
-        onLeftPress: React.PropTypes.func,
-        onRightTextPress: React.PropTypes.func,
-        onTitlePress: React.PropTypes.func,
-        renderLeftSide: React.PropTypes.func,
-        renderRightSide: React.PropTypes.func,
+        onLeftPress: PropTypes.func,
+        onRightTextPress: PropTypes.func,
+        onTitlePress: PropTypes.func,
+        renderLeftSide: PropTypes.func,
+        renderRightSide: PropTypes.func,
         rightIconContainerStyle: Icon.propTypes.containerStyle,
         rightIconImageStyle: Icon.propTypes.imageStyle,
-        rightIcons: React.PropTypes.arrayOf(
-            React.PropTypes.shape({
+        rightIcons: PropTypes.arrayOf(
+            PropTypes.shape({
                 ...Icon.propTypes,
                 badge: Badge.propTypes.content,
-                onPress: React.PropTypes.func.isRequired,
+                onPress: PropTypes.func.isRequired,
             })
         ),
-        rightText: React.PropTypes.string,
+        rightText: PropTypes.string,
         rightTextStyle: Text.propTypes.style,
         rightTouchableChildStyle: View.propTypes.style,
         rightZoneContentContainerStyle: View.propTypes.style,
-        throttleDelay: React.PropTypes.number,
-        title: React.PropTypes.string,
+        throttleDelay: PropTypes.number,
+        title: PropTypes.string,
         titleContainerStyle: View.propTypes.style,
         titleStyle: Text.propTypes.style,
     };

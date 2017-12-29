@@ -4,16 +4,17 @@ import {
     Text,
     View,
 } from 'react-native';
+import PropTypes from 'proptypes';
 
 export default class Badge extends Component {
     static propTypes = {
-        backgroundColor: React.PropTypes.string,
-        color: React.PropTypes.string,
-        content: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.number,
+        backgroundColor: PropTypes.string,
+        color: PropTypes.string,
+        content: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
         ]),
-        isLeft: React.PropTypes.bool,
+        isLeft: PropTypes.bool,
     };
 
     static defaultProps = {
