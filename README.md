@@ -45,6 +45,11 @@ iOS             |  Android
             badge: '1',
             onPress: () => console.log('Right Flag !'),
         },
+        {
+            image: require('my-custom-image.png'), // To use a custom image
+            badge: '1',
+            onPress: () => console.log('Right Custom image !'),
+        },
     ]}
 />
 ```
