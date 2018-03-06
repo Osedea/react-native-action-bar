@@ -24,6 +24,7 @@ import {
     Text,
     TouchableWithoutFeedback,
     View,
+    ViewPropTypes,
 } from 'react-native';
 import { throttle } from 'lodash';
 import color from 'color';
@@ -42,11 +43,11 @@ export default class ActionBar extends Component {
         backgroundColor: PropTypes.string,
         badgeColor: PropTypes.string,
         badgeTextColor: PropTypes.string,
-        containerStyle: View.propTypes.style,
+        containerStyle: ViewPropTypes.style,
         disableShadows: PropTypes.bool,
         disableStatusBarHandling: PropTypes.bool,
         elevation: PropTypes.number,
-        iconContainerStyle: View.propTypes.style,
+        iconContainerStyle: ViewPropTypes.style,
         iconImageStyle: Image.propTypes.style,
         isLeftBadgeLeft: PropTypes.bool,
         leftBadge: Badge.propTypes.content,
@@ -54,8 +55,8 @@ export default class ActionBar extends Component {
         leftIconImage: Icon.propTypes.source,
         leftIconImageStyle: Icon.propTypes.imageStyle,
         leftIconName: Icon.propTypes.name,
-        leftTouchableChildStyle: View.propTypes.style,
-        leftZoneContentContainerStyle: View.propTypes.style,
+        leftTouchableChildStyle: ViewPropTypes.style,
+        leftZoneContentContainerStyle: ViewPropTypes.style,
         onLeftPress: PropTypes.func,
         onRightTextPress: PropTypes.func,
         onTitlePress: PropTypes.func,
@@ -72,11 +73,11 @@ export default class ActionBar extends Component {
         ),
         rightText: PropTypes.string,
         rightTextStyle: Text.propTypes.style,
-        rightTouchableChildStyle: View.propTypes.style,
-        rightZoneContentContainerStyle: View.propTypes.style,
+        rightTouchableChildStyle: ViewPropTypes.style,
+        rightZoneContentContainerStyle: ViewPropTypes.style,
         throttleDelay: PropTypes.number,
         title: PropTypes.string,
-        titleContainerStyle: View.propTypes.style,
+        titleContainerStyle: ViewPropTypes.style,
         titleStyle: Text.propTypes.style,
     };
 

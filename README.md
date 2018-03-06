@@ -68,11 +68,11 @@ allowFontScaling | React.PropTypes.bool | If you want to allow font scaling on t
 backgroundColor | React.PropTypes.string | The background color of the Bar
 badgeColor | [Badge](./Badge.js).propTypes.backgroundColor | The color of all badges
 badgeTextColor | [Badge](./Badge.js).propTypes.color | The color of the text of the badges
-containerStyle | View.propTypes.style | Style of the container of the bar (has the backgroundColor)
+containerStyle | ViewPropTypes.style | Style of the container of the bar (has the backgroundColor)
 disableShadows | React.PropTypes.bool | If you want the ActionBar to drop a shadow or not (The default is `false`)
 disableStatusBarHandling | React.PropTypes.bool | If you want the ActionBar to set the color/style of the StatusBar (The default is `false`)
 elevation | React.PropTypes.number | On Android, to 'control' the Shadow dropped by the bar (default is `2`)
-iconContainerStyle | View.propTypes.style | See the [Icon](./Icon.js) component (applies to all Icons (left and right)
+iconContainerStyle | ViewPropTypes.style | See the [Icon](./Icon.js) component (applies to all Icons (left and right)
 iconImageStyle | Image.propTypes.style | See the [Icon](./Icon.js) component (applies to all Icons (left and right)
 isLeftBadgeLeft | React.PropTypes.bool | Position of the badge on the left Icon
 leftBadge | [Badge](./Badge.js).propTypes.content | Text of the badge on the left Icon (`''` is a valid value, it will display an empty badge. `undefined` is needed to not have the badge displayed)
@@ -80,8 +80,8 @@ leftIconContainerStyle | [Icon](./Icon.js).propTypes.containerStyle | See the [I
 leftIconImage | [Icon](./Icon.js).propTypes.source | An image to use as Icon (`require()`). Don't use remote images (`{ uri: ... }`) as it will have bad performance, but I guess you can
 leftIconImageStyle | [Icon](./Icon.js).propTypes.imageStyle | See the [Icon](./Icon.js) component
 leftIconName | [Icon](./Icon.js).propTypes.name | The name of one of the predefined Icons (see [`List of predefined Icons`](#predefined-icons))
-leftTouchableChildStyle | View.propTypes.style | The style of the View inside the `TouchableWithoutFeedback` element for the left Icon
-leftZoneContentContainerStyle | View.propTypes.style | The style of the View around the `TouchableWithoutFeedback` element for the left Icon
+leftTouchableChildStyle | ViewPropTypes.style | The style of the View inside the `TouchableWithoutFeedback` element for the left Icon
+leftZoneContentContainerStyle | ViewPropTypes.style | The style of the View around the `TouchableWithoutFeedback` element for the left Icon
 onLeftPress | React.PropTypes.func | The function to execute `onPress` for the left Icon
 onRightTextPress | React.PropTypes.func | The function to execute `onPress` for the `Text` that you can display on the right of the Title
 onTitlePress | React.PropTypes.func | The function to execute `onPress` for the Title
@@ -92,11 +92,11 @@ rightIconImageStyle | [Icon](./Icon.js).propTypes.imageStyle | See the [Icon](./
 rightIcons | React.PropTypes.arrayOf(<br>    React.PropTypes.shape({<br>         ...[Icon](./Icon.js).propTypes,<br>        badge: [Badge](./Badge.js).propTypes.content,<br>        onPress: React.PropTypes.func.isRequired,<br>    }),<br>) | See below
 rightText | React.PropTypes.string | The text to display on the right
 rightTextStyle | Text.propTypes.style | Style of the text to display on the right
-rightTouchableChildStyle | View.propTypes.style | The style of the View inside the `TouchableWithoutFeedback` element for all the Icons on the right
-rightZoneContentContainerStyle | View.propTypes.style | The style of the View around all the Icons + Text on the right
+rightTouchableChildStyle | ViewPropTypes.style | The style of the View inside the `TouchableWithoutFeedback` element for all the Icons on the right
+rightZoneContentContainerStyle | ViewPropTypes.style | The style of the View around all the Icons + Text on the right
 throttleDelay | React.PropTypes.number | The delay to throttle the presses on the Icons (The default is `750ms`)
 title | React.PropTypes.string | The Text of the Title
-titleContainerStyle | View.propTypes.style | The style of the `View` containing the `Text` element for the Title
+titleContainerStyle | ViewPropTypes.style | The style of the `View` containing the `Text` element for the Title
 titleStyle | Text.propTypes.style | The style of the `Text` element for the Title
 
 ## rightIcons elements example
