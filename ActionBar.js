@@ -64,13 +64,13 @@ export default class ActionBar extends Component {
         renderRightSide: PropTypes.func,
         rightIconContainerStyle: Icon.propTypes.containerStyle,
         rightIconImageStyle: Icon.propTypes.imageStyle,
-        rightIcons: PropTypes.arrayOf(
-            PropTypes.shape({
-                ...Icon.propTypes,
-                badge: Badge.propTypes.content,
-                onPress: PropTypes.func.isRequired,
-            })
-        ),
+        // rightIcons: PropTypes.arrayOf(
+        //     PropTypes.shape({
+        //         ...Icon.propTypes,
+        //         badge: Badge.propTypes.content,
+        //         onPress: PropTypes.func.isRequired,
+        //     })
+        // ),
         rightText: PropTypes.string,
         rightTextStyle: Text.propTypes.style,
         rightTouchableChildStyle: ViewPropTypes.style,
